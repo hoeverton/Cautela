@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-sm mt-4" >
+        <h3 class="display-6">Cadastro de Material</h3>
+
+        <div class="card">
+            <div class="card-body">
+                <form class="form" method="post">
+                    {% csrf_token %}
+                    
+                    {{form.as_p}}
+                    
+                    <button type="submit" class="btn btn-primary">Salvar Material</button>
+                </form>
+                
+            </div>
+        </div>
+        <a href="{% url 'material_list' %}" class="btn btn-secondary mt-3">Cancelar e voltra Lista de Material</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h3 class="display-6">Detalhes da Cautela</h3>
+
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">{{object.titulo}} </h3>
+            <p class="card-text"> Data: {{object.data|date:"d/m/Y"}}}</p>
+            <p class="card-text"> Furriel: {{object.furriel}}</p>
+            <p class="card-text"> Material: {{object.material}} - {{ object.material.patrimonio }}</p>
+            <p class="card-text"> Opção: {{object.opcao}}</p>
+            <p class="card-text"> Solicitante: {{object.solicitante}}</p>
+            <p class="card-text"> Data de Entrega: {{object.data_entrega|date:"d/m/Y"|default_if_none:""}}</p>
+            <p class="card-text"> Recebedor: {{object.recebedor|default_if_none:""}}</p>
+            <p class="card-text"> Entregador: {{object.entregador|default_if_none:""}}</p>
+            <p class="card-text"> Alteração: {{object.alteracao|default_if_none:""}}</p>
+            
+        </div>
+    </div>
+    <a href="{% url 'cautela_list' %}" class="btn btn-secondary mt-3">Voltar para Lista de Cautelas</a>
+</div>
+
+{% endblock %}

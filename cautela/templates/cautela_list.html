@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Cautela - Material
+{% endblock %}
+
+{% block content %}
+<h2>Material</h2>
+<div class="row mb-3">
+    <div class="col-md-6">
+        <form method="get" action="{% url 'cautela_list'%}">
+            <div class="input-group">
+                <input type="text" class="form-control" name="material" placeholder="Material" value="{{ request.GET.material}}">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <a href="{% url 'cautela_create_step1' %}" class="btn btn-success float-end">
+            <i class="bi bi-plus">Nova Cautela</i>
+        </a>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-sm small">
+        <thead class="thead-dark">
+            <tr>
+                <th>Status</th>
+                <th>Data</th>
+                <th>Furriel</th>
+                <th>Material</th>
+                <th>Opção</th>
+                <th>Solicitante</th>
+                <th>Data de Entrega</th>
+                <th>Entregador</th>
+                <th>Recebedor</th>
+                <th>Alteração</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cautela in cautelas %}
+            <tr>
+                <td>{{cautela.status}}</td>
+                <td>{{cautela.data|date:"d/m/Y" }}</td>
+                <td>{{cautela.furriel}}</td>
+                <td>{{cautela.material}} - {{ cautela.material.patrimonio }}</td>
+                <td>{{cautela.opcao}}</td>
+                <td>{{cautela.solicitante}}</td>
+                <td>{{cautela.data_entrega|date:"d/m/Y"|default_if_none:"" }}</td>
+                <td>{{ cautela.recebedor|default_if_none:"" }}</td>
+                <td>{{ cautela.entregador|default_if_none:"" }}</td>
+                <td>{{ cautela.alteracao|default_if_none:"" }}</td>
+                <td class="text-nowrap"> <!-- text-nowrap impede a quebra de linha -->
+                    <a href="{% url 'cautela_detail' cautela.id %}" class="btn btn-info btn-sm">
+                        <i class="bi bi-eye"></i>
+                    </a>
+                    <a href="{% url 'cautela_update' cautela.id %}" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                    <a href="{% url 'cautela_finish' cautela.id %}" class="btn btn-success btn-sm">
+                        <i class="bi bi-check2"></i>
+                    </a>
+                   
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% include 'components/_pagination.html' %}
+{% endblock %}

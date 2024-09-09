@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-sm mt-4" >
+        <h3 class="display-6">Cadastro de Policial</h3>
+
+        <div class="card">
+            <div class="card-body">
+                <form class="form" method="post">
+                    {% csrf_token %}
+                    
+                    <!-- Campos do formulário -->
+                    <div class="mb-3">
+                        {{ form.post_grad.label_tag }} {{ form.post_grad }}
+                        {% if form.post_grad.errors %}
+                            <div class="error">{{ form.post_grad.errors }}</div>
+                        {% endif %}
+                    </div>
+                
+                    <div class="mb-3">
+                        {{ form.nome_completo.label_tag }} {{ form.nome_completo }}
+                        {% if form.nome_completo.errors %}
+                            <div class="error">{{ form.nome_completo.errors }}</div>
+                        {% endif %}
+                    </div>
+                
+                    <div class="mb-3">
+                        {{ form.nome_guerra.label_tag }} {{ form.nome_guerra }}
+                        {% if form.nome_guerra.errors %}
+                            <div class="error">{{ form.nome_guerra.errors }}</div>
+                        {% endif %}
+                    </div>
+                
+                    <div class="mb-3">
+                        {{ form.cpf.label_tag }} {{ form.cpf }}
+                        {% if form.cpf.errors %}
+                            <div class="error">{{ form.cpf.errors }}</div>
+                        {% endif %}
+                    </div>
+                
+                    <div class="mb-3">
+                        {{ form.email.label_tag }} {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="error">{{ form.email.errors }}</div>
+                        {% endif %}
+                    </div>
+                
+                    <div class="mb-3">
+                        {{ form.senha.label_tag }} {{ form.senha }}
+                        {% if form.senha.errors %}
+                            <div class="error">{{ form.senha.errors }}</div>
+                        {% endif %}
+                    </div>
+                
+                    <div class="mb-3">
+                        {{ form.conf_senha.label_tag }} {{ form.conf_senha }}
+                        {% if form.conf_senha.errors %}
+                            <div class="error">{{ form.conf_senha.errors }}</div>
+                        {% endif %}
+                    </div>
+                
+                    {% if form.non_field_errors %}
+                        <ul class="errorlist">
+                            {% for error in form.non_field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    
+                    <button type="submit" class="btn btn-primary">Salvar Policial</button>
+                </form>
+                
+            </div>
+        </div>
+        <a href="{% url 'policial_list' %}" class="btn btn-secondary mt-3">Cancelar</a>
+    </div>
+{% endblock %}

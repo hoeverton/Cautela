@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h3 class="display-6">Detalhes do Policial</h3>
+
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">{{object.post_grad}} {{object.nome_guerra}}</h3>
+            <p class="card-text"> Nome: {{object.nome_completo}}</p>
+            <p class="card-text">CPF: {{object.cpf_oculto}}</p>
+            <p class="card-text">Email: {{object.email}}</p>
+            <p class="card-text">Última atualização: {{object.update_at}}</p>
+        </div>
+    </div>
+    <a href="{% url 'policial_list' %}" class="btn btn-secondary mt-3">Voltar para Lista de Policial</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-sm mt-4" >
+        <h3 class="display-6">Finalizar  Cautela</h3>
+
+        <div class="card">
+            <div class="card-body">
+                <form class="form" method="post">
+                    {% csrf_token %}
+                    {{form.data_entrega.label}}
+                    <p></p>                    
+                    {{ form.data_entrega}}
+                    <p></p>
+                    {{ form.entregador.label}}
+                    {{ form.entregador}}
+                    <p></p>
+                    {{ form.recebedor.label}}
+                    {{ form.recebedor}}
+                    <p></p>
+                    {{ form.alteracao.label}}
+                    {{ form.alteracao}}
+                    <p></p>
+                    
+                    <button type="submit" class="btn btn-primary">Salvar Atualização</button>
+                </form>
+                {% if form.non_field_errors %}
+                    <div class="errors">
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                {% endfor %}
+                    </div>
+    {% endif %}
+                
+            </div>
+        </div>
+        <a href="{% url 'cautela_list' %}" class="btn btn-secondary mt-3">Cancelar</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'base.html' %} <!-- Verifique se 'base.html' está no diretório de templates correto -->
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>Buscar Cautelas</h2>
+
+    <!-- Formulário de Filtro -->
+    <form method="get" class="mb-4">
+      {{ filterset.form.as_p }} <!-- Verifique se 'filterset' está sendo passado pela view -->
+      <button type="submit" class="btn btn-primary">Buscar</button>
+      <a href="{% url 'generate_pdf' %}?{{ request.GET.urlencode }}" target="_blank">Gerar PDF</a>
+
+
+
+      
+
+    </form>
+
+    <!-- Tabela de Resultados -->
+    <h3>Resultados da Busca</h3>
+    {% if cautelas %}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+                <th>Status</th>
+                <th>Data</th>
+                <th>Furriel</th>
+                <th>Material</th>
+                <th>Opção</th>
+                <th>Solicitante</th>
+                <th>Data de Entrega</th>
+                <th>Entregador</th>
+                <th>Recebedor</th>
+                <th>Alteração</th>
+                <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cautela in cautelas %}
+            <tr>
+                <td>{{cautela.status}}</td>
+                <td>{{cautela.data|date:"d/m/Y" }}</td>
+                <td>{{cautela.furriel}}</td>
+                <td>{{cautela.material}} - {{ cautela.material.patrimonio }}</td>
+                <td>{{cautela.opcao}}</td>
+                <td>{{cautela.solicitante}}</td>
+                <td>{{cautela.data_entrega|date:"d/m/Y"|default_if_none:"" }}</td>
+                <td>{{ cautela.recebedor|default_if_none:"" }}</td>
+                <td>{{ cautela.entregador|default_if_none:"" }}</td>
+                <td>{{ cautela.alteracao|default_if_none:"" }}</td>
+                <td>
+                  <!-- Exemplo de Ação (Detalhes, Editar, etc.) -->
+                  <a href="{% url 'cautela_detail' cautela.id %}" class="btn btn-info btn-sm">Detalhes</a>                
+                </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>Nenhum resultado encontrado.</p>
+    {% endif %}
+
+    <!-- Paginação -->
+    {% if cautelas.has_other_pages %}
+      <div class="pagination">
+        <span class="step-links">
+          {% if cautelas.has_previous %}
+            <a href="?{% if filterset.form.data %}{{ filterset.form.data.urlencode }}&{% endif %}page=1">&laquo; primeira</a>
+            <a href="?{% if filterset.form.data %}{{ filterset.form.data.urlencode }}&{% endif %}page={{ cautelas.previous_page_number }}">anterior</a>
+          {% endif %}
+
+          <span class="current">
+            Página {{ cautelas.number }} de {{ cautelas.paginator.num_pages }}.
+          </span>
+
+          {% if cautelas.has_next %}
+            <a href="?{% if filterset.form.data %}{{ filterset.form.data.urlencode }}&{% endif %}page={{ cautelas.next_page_number }}">próxima</a>
+            <a href="?{% if filterset.form.data %}{{ filterset.form.data.urlencode }}&{% endif %}page={{ cautelas.paginator.num_pages }}">&uacute;ltima &raquo;</a>
+          {% endif %}
+        </span>
+      </div>
+      
+    {% endif %}
+  </div>
+{% endblock %}

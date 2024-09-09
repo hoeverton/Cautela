@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;  /* Ajuste o tamanho da fonte */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px; /* Adicione margem para separar da borda */
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 5px;  /* Ajuste o padding das células */
+            text-align: left;
+            font-size: 10px;  /* Ajuste o tamanho da fonte nas células */
+        }
+        th {
+            background-color: #f2f2f2; /* Adicione uma cor de fundo aos cabeçalhos */
+        }
+        th, td {
+            width: 16%;  /* Ajuste a largura das células */
+        }
+        thead {
+            display: table-header-group; /* Garante que o cabeçalho fique no topo da página quando houver quebra */
+        }
+        tbody {
+            display: table-row-group; /* Garante que o corpo da tabela continue corretamente */
+        }
+    </style>
+</head>
+<body>
+    <h1>Relatório da Cautelas</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th>Data</th>
+                <th>Furriel</th>
+                <th>Material</th>
+                <th>Opção</th>
+                <th>Solicitante</th>
+                <th>Data de Entrega</th>
+                <th>Entregador</th>
+                <th>Recebedor</th>
+                <th>Alteração</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cautela in cautelas %}
+            <tr>
+                <td>{{cautela.status}}</td>
+                <td>{{cautela.data|date:"d/m/Y" }}</td>
+                <td>{{cautela.furriel}}</td>
+                <td>{{cautela.material}} - {{ cautela.material.patrimonio }}</td>
+                <td>{{cautela.opcao}}</td>
+                <td>{{cautela.solicitante}}</td>
+                <td>{{cautela.data_entrega|date:"d/m/Y"|default_if_none:"" }}</td>
+                <td>{{ cautela.recebedor|default_if_none:"" }}</td>
+                <td>{{ cautela.entregador|default_if_none:"" }}</td>
+                <td>{{ cautela.alteracao|default_if_none:"" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

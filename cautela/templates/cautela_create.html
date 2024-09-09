@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-sm mt-4" >
+        <h3 class="display-6">Cadastro de Cautela Diária</h3>
+
+        <div class="card">
+            <div class="card-body">
+                <form class="form" method="post">
+                    {% csrf_token %}
+                    
+                    {{form.as_p}}
+                    
+                    <button type="submit" class="btn btn-primary">Salvar Cautela</button>
+                </form>
+                
+            </div>
+        </div>
+        <a href="{% url 'cautela_list' %}" class="btn btn-secondary mt-3">Cancelar e voltra Lista de Cautelas</a>
+        <script>
+            $(document).ready(function() {
+                $('.form-control').select2({
+                    placeholder: "Digite para buscar",  // Placeholder (opcional)
+                    allowClear: true  // Permite limpar a seleção
+                });
+            });
+        </script>
+        
+    </div>
+{% endblock %}
